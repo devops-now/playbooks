@@ -1,0 +1,13 @@
+- hosts: localhost
+  connection: local
+
+  pre_tasks:
+    - name: test if user is root
+      assert:
+        that:
+          - '{{ lookup("env", "USER") == "root" }}'
+
+  roles:
+    - common
+    - multimedia
+    - gopass

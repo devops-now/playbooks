@@ -1,0 +1,24 @@
+packages_name:
+  - adobe-source-code-pro-fonts
+  - awesome
+  - gdm
+  - feh
+  - fish
+  - google-roboto-fonts
+  - google-noto-sans-fonts
+  - google-noto-sans-mono-fonts
+  - git
+  - jq
+  - light
+  - maim
+  - pavucontrol
+  - pulseaudio
+  - pulseaudio-utils
+  - redshift
+  - rofi
+  - slock
+  - st
+  - tar
+  - tmux
+  - xclip
+  - ykpers

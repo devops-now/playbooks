@@ -1,0 +1,53 @@
+- name: ensure directory ~/.gnupg exists
+  file:
+    path: "{{ getent_passwd[user][4] }}/.gnupg"
+    mode: "0700"
+    state: directory
+
+- name: populate ~/.gnupg/gpg-agent.conf
+  copy:
+    dest: "{{ getent_passwd[user][4] }}/.gnupg/gpg-agent.conf"
+    content: |
+      enable-ssh-support
+      default-cache-ttl 60
+      max-cache-ttl 120
+
+- name: ensure ssh-agent is not running
+  command: >
+    pkill ssh-agent
+  ignore_errors: yes
+
+- name: kill gpg-agent
+  command: >
+    gpgconf --kill gpg-agent
+  ignore_errors: yes
+
+- name: relaunch gpg-agent
+  command: >
+    gpgconf --launch gpg-agent
+
+- name: import my gpg public key
+  shell: >
+    curl -sSL {{ gpg_key }} | gpg --import -
+
+- name: environment variable for profile
+  lineinfile:
+    path: "{{ getent_passwd[user][4] }}/.profile"
+    regexp: '^export {{ item.key }}='
+    line: "export {{ item.key }}={{ item.value }}"
+  loop: "{{ env_variables | dict2items }}"
+  vars:
+    env_variables:
+      SSH_AUTH_SOCK: "/run/user/{{ getent_passwd[user][2] }}/gnupg/S.gpg-agent.ssh"
+      SSH_AGENT_PID: ""
+
+- name: environment variable for bashrc
+  lineinfile:
+    path: "{{ getent_passwd[user][4] }}/.bashrc"
+    regexp: '^export {{ item.key }}='
+    line: "export {{ item.key }}={{ item.value }}"
+  loop: "{{ env_variables | dict2items }}"
+  vars:
+    env_variables:
+      SSH_AUTH_SOCK: "/run/user/{{ getent_passwd[user][2] }}/gnupg/S.gpg-agent.ssh"
+      SSH_AGENT_PID: ""

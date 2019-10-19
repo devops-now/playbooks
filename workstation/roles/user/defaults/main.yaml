@@ -1,0 +1,5 @@
+# Github prefix
+# HTTPS
+#user_git_prefix: "https://github.com/"
+# SSH
+user_git_prefix: "git@github.com:"

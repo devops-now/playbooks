@@ -1,0 +1,37 @@
+- include_vars: '{{ item }}'
+  with_first_found:
+    - "../vars/{{ ansible_distribution }}-{{ ansible_distribution_version }}.yaml"
+    - "../vars/{{ ansible_distribution }}.yaml"
+    - "../vars/{{ ansible_os_family }}.yaml"
+    - "../vars/default.yaml"
+
+- name: create temp directory
+  tempfile:
+    state: directory
+  register: temp_dir
+
+- name: get latest release
+  uri:
+    url: https://api.github.com/repos/{{ gopass_repo }}/releases/latest
+  register: latest_release
+
+- name: unarchive gopass
+  unarchive:
+    src: "{{ (latest_release.json.assets | selectattr('name', 'search', gopass_file_suffix+'$') | map(attribute='browser_download_url') | list)[0] }}"
+    dest: "{{ temp_dir.path }}"
+    remote_src: yes
+    extra_opts:
+      - --strip-components=1
+
+- name: copy extracted binary to /usr/local/bin
+  copy:
+    src: "{{ temp_dir.path }}/gopass"
+    dest: /usr/local/bin/gopass
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: remove temporary directory
+  file:
+    path: "{{ temp_dir.path }}"
+    state: absent

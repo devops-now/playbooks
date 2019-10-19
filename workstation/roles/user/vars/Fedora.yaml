@@ -1,0 +1,15 @@
+user_repos:
+  arouene/dotfiles-awesome: .config/awesome
+  arouene/dotfiles-fish: .config/fish
+  arouene/dotfiles-kitty: .config/kitty
+  arouene/dotfiles-mpv: .config/mpv
+  arouene/dotfiles-rofi: .config/rofi
+  arouene/dotfiles-tmux: .config/tmux
+  arouene/dotfiles-vimrc: .vim
+
+gpg_key: https://github.com/arouene.gpg
+
+git_user:
+  name: "Aurélien Rouëné"
+  email: "aurelien.github.arouene@rouene.fr"
+  signingkey: "C03367CC2769151D"

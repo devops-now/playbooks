@@ -1,0 +1,6 @@
+- name: configure git to use yubikey
+  git_config:
+    name: "user.{{ item.key }}"
+    scope: global
+    value: "{{ item.value }}"
+  loop: "{{ git_user | dict2items }}"

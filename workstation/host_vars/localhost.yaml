@@ -1,0 +1,21 @@
+user_js:
+  # Do not check if default browser
+  browser.shell.checkDefaultBrowser: false
+  # Resume last session at start
+  browser.startup.page: 3
+  # Startup home page
+  browser.startup.homepage: about:blank
+  # Security:
+  dom.serviceWorkers.enabled: false
+  dom.webnotifications.enabled: false
+
+extensions:
+  - ublock-origin
+  - decentraleyes
+  - stylus
+  - privacy badger
+  - firefox multi-account containers
+  - noscript security suite
+  - dark reader
+  - foxyproxy standard
+  - https everywhere

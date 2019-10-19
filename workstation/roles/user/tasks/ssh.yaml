@@ -1,0 +1,12 @@
+- name: create .ssh/config file
+  copy:
+    dest: "{{ getent_passwd[user][4] }}/.ssh/config"
+    mode: "0700"
+    content: |
+      Host devops-now.com
+        User root
+        Port 225
+      
+      Host git.devops-now.com
+        Port 225
+

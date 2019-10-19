@@ -1,0 +1,22 @@
+- hosts: localhost
+  connection: local
+
+  vars:
+    user: "{{ lookup('getuser_by_id', 1000) }}"
+
+  pre_tasks:
+    - name: get user passwd info
+      getent:
+        database: passwd
+        key: "{{ user }}"
+
+  roles:
+    - role: user
+      become_user: "{{ user }}"
+
+  post_tasks:
+    - name: set fish shell for user
+      shell: >
+        usermod -s /usr/bin/fish {{ user }}
+      tags:
+        - fish
