@@ -1,7 +1,6 @@
 packages_name:
   - adobe-source-code-pro-fonts
   - awesome
-  - gdm
   - feh
   - fish
   - google-roboto-fonts
@@ -16,6 +15,7 @@ packages_name:
   - pulseaudio-utils
   - redshift
   - rofi
+  - slim
   - slock
   - st
   - tar
