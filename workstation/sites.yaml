@@ -5,7 +5,7 @@
     - name: test if user is root
       assert:
         that:
-          - '{{ lookup("env", "USER") == "root" }}'
+          - '{{ lookup("pipe", "id -u") == "0" }}'
 
   roles:
     - common
