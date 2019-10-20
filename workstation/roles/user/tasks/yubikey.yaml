@@ -33,6 +33,8 @@
 - name: environment variable for profile
   lineinfile:
     path: "{{ getent_passwd[user][4] }}/.profile"
+    create: yes
+    mode: "0644"
     regexp: '^export {{ item.key }}='
     line: "export {{ item.key }}={{ item.value }}"
   loop: "{{ env_variables | dict2items }}"
@@ -44,6 +46,8 @@
 - name: environment variable for bashrc
   lineinfile:
     path: "{{ getent_passwd[user][4] }}/.bashrc"
+    create: yes
+    mode: "0644"
     regexp: '^export {{ item.key }}='
     line: "export {{ item.key }}={{ item.value }}"
   loop: "{{ env_variables | dict2items }}"
