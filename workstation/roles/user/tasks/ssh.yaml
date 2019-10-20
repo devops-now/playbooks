@@ -1,3 +1,9 @@
+- name: ensure .ssh exists
+  file:
+    path: "{{ getent_passwd[user][4] }}/.ssh"
+    mode: "0700"
+    state: directory
+
 - name: create .ssh/config file
   copy:
     dest: "{{ getent_passwd[user][4] }}/.ssh/config"
