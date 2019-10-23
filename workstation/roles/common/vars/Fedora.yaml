@@ -7,8 +7,10 @@ packages_name:
   - google-noto-sans-fonts
   - google-noto-sans-mono-fonts
   - git
+  - hdparm
   - jq
   - light
+  - lnav
   - maim
   - pavucontrol
   - pulseaudio
